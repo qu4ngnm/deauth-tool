@@ -73,11 +73,6 @@ import time
 
 from scapy.all import *
 
-# Set interface to monitor mode
-# os.system("ifconfig wlan0 down")
-# os.system("iwconfig wlan0 mode monitor")
-# os.system("ifconfig wlan0 up")
-
 def scan_ap(ap_mac):
     # Send probe request
     pkt = RadioTap()/Dot11(type=0, subtype=4, addr1="ff:ff:ff:ff:ff:ff", addr2=ap_mac, addr3=ap_mac)/Dot11ProbeReq()
